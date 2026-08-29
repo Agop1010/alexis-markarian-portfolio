@@ -517,6 +517,18 @@ h1 {
   color: rgba(255, 255, 255, 0.42);
   font-size: 10px;
 }
+.process-section {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.process-board {
+  width: min(100%, 980px);
+  min-height: 500px;
+  margin-inline: auto;
+}
+.process-board .system-stage {
+  min-height: 310px;
+}
 .trust-strip {
   overflow: hidden;
   color: #fff;
