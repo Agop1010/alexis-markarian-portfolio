@@ -134,7 +134,8 @@ button {
   flex: 0 0 auto;
   overflow: hidden;
   color: transparent;
-  background: #fff url("assets/alexis-markarian.svg") center / 92% no-repeat;
+  background: #fff url("assets/alexis-markarian.svg") center 16% / 110%
+    no-repeat;
   border: 0;
   border-radius: 14px;
   font-family: var(--mono);
@@ -1710,6 +1711,85 @@ h2 {
 .article-block h2 {
   font-size: clamp(2.4rem, 4vw, 4.5rem);
 }
+.legal-layout {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.legal-section {
+  padding: 36px 0;
+  border-top: 1px solid var(--line);
+}
+.legal-section:first-child {
+  border-top: 0;
+}
+.legal-section h2 {
+  margin-bottom: 18px;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+}
+.legal-section p,
+.legal-section li {
+  color: #536067;
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+.legal-section a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cookie-banner {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 300;
+  width: min(440px, calc(100vw - 32px));
+  padding: 22px;
+  color: #fff;
+  background: rgba(23, 24, 23, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+}
+.cookie-banner h2 {
+  margin: 0 0 9px;
+  font-size: 1.15rem;
+  letter-spacing: -0.025em;
+}
+.cookie-banner p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.cookie-actions {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cookie-actions button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 650;
+  cursor: pointer;
+}
+.cookie-actions a {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  text-decoration: underline;
+}
+.cookie-settings {
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+}
 .article-block h3 {
   margin-top: 38px;
   font-size: 1.5rem;
@@ -2045,6 +2125,10 @@ h2 {
   }
   .calculator-form {
     grid-template-columns: 1fr;
+  }
+  .cookie-banner {
+    right: 16px;
+    bottom: 16px;
   }
   .calculator-form .full {
     grid-column: auto;
