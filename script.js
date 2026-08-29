@@ -135,10 +135,11 @@ filters.forEach((filter) => filter.addEventListener('click', () => {
 
 const form = document.querySelector('[data-contact-form]');
 form?.addEventListener('submit', (event) => {
-  event.preventDefault();
   const status = form.querySelector('.form-status');
-  status.textContent = 'La maquette fonctionne. L’adresse de réception sera connectée après votre validation.';
-  form.querySelector('button').textContent = 'Demande préparée ✓';
+  status.textContent = 'Envoi de votre demande…';
+  form.querySelector('button').disabled = true;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'lead_form_submit', form_name: 'contact' });
 });
 
 document.querySelector('[data-year]').textContent = new Date().getFullYear();
@@ -169,7 +170,42 @@ if (diagnostic) {
         const result = recommendations[answers.need] || recommendations.time;
         resultTitle.textContent = result[0];
         resultText.textContent = result[1];
+        diagnostic.querySelector('[data-diagnostic-need]').value = answers.need || '';
+        diagnostic.querySelector('[data-diagnostic-stage]').value = answers.stage || '';
+        diagnostic.querySelector('[data-diagnostic-result]').value = result[0];
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'diagnostic_complete', recommendation: result[0] });
       }
     });
   });
+}
+
+document.querySelectorAll('a[href*="calendly.com"], a[href$="rendez-vous.html"]').forEach((link) => {
+  link.addEventListener('click', () => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'booking_click', link_url: link.href });
+  });
+});
+
+const calculator = document.querySelector('[data-roi-calculator]');
+if (calculator) {
+  const fields = [...calculator.querySelectorAll('input[type="number"]')];
+  const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  const updateCalculator = () => {
+    const hours = Math.max(Number(calculator.querySelector('[name="hours"]').value) || 0, 0);
+    const people = Math.max(Number(calculator.querySelector('[name="people"]').value) || 0, 0);
+    const rate = Math.max(Number(calculator.querySelector('[name="rate"]').value) || 0, 0);
+    const automated = Math.min(Math.max(Number(calculator.querySelector('[name="automated"]').value) || 0, 0), 100);
+    const savedHours = hours * people * 52 * (automated / 100);
+    const savedValue = savedHours * rate;
+    calculator.querySelector('[data-saved-hours]').textContent = Math.round(savedHours).toLocaleString('fr-FR');
+    calculator.querySelector('[data-saved-value]').textContent = euro.format(savedValue);
+    calculator.querySelector('[data-roi-summary]').value = `${Math.round(savedHours)} heures et ${euro.format(savedValue)} potentiellement économisés par an`;
+  };
+  fields.forEach((field) => field.addEventListener('input', updateCalculator));
+  calculator.addEventListener('submit', () => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'roi_lead_submit' });
+  });
+  updateCalculator();
 }
