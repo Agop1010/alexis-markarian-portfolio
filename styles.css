@@ -646,7 +646,10 @@ h2 {
 .service-tab.active > i {
   color: #fff;
   background: var(--ink);
-  transform: rotate(45deg);
+  transform: none;
+}
+.service-tab.active > i::before {
+  content: "→\FE0E";
 }
 .service-preview {
   min-height: 520px;
