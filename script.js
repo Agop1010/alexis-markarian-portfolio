@@ -203,14 +203,34 @@ form?.addEventListener("submit", (event) => {
   window.dataLayer.push({ event: "lead_form_submit", form_name: "contact" });
 });
 
-document.querySelector("[data-year]").textContent = new Date().getFullYear();
+const year = document.querySelector("[data-year]");
+if (year) year.textContent = new Date().getFullYear();
 
 const legalLinks = document.querySelector(".footer > div");
+const stylesheetHref =
+  document
+    .querySelector('link[rel="stylesheet"][href$="styles.css"]')
+    ?.getAttribute("href") || "styles.css";
+const rootPrefix = stylesheetHref.slice(0, -"styles.css".length);
 if (legalLinks) {
-  legalLinks.insertAdjacentHTML(
-    "beforeend",
-    '<a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><button class="cookie-settings" type="button" data-cookie-settings>Cookies</button>',
-  );
+  if (!legalLinks.querySelector('a[href$="mentions-legales.html"]')) {
+    legalLinks.insertAdjacentHTML(
+      "beforeend",
+      `<a href="${rootPrefix}mentions-legales.html">Mentions légales</a>`,
+    );
+  }
+  if (!legalLinks.querySelector('a[href$="confidentialite.html"]')) {
+    legalLinks.insertAdjacentHTML(
+      "beforeend",
+      `<a href="${rootPrefix}confidentialite.html">Confidentialité</a>`,
+    );
+  }
+  if (!legalLinks.querySelector("[data-cookie-settings]")) {
+    legalLinks.insertAdjacentHTML(
+      "beforeend",
+      '<button class="cookie-settings" type="button" data-cookie-settings>Cookies</button>',
+    );
+  }
 }
 
 const COOKIE_NOTICE_KEY = "am_cookie_notice";
@@ -219,8 +239,7 @@ const showCookieNotice = () => {
   const banner = document.createElement("aside");
   banner.className = "cookie-banner";
   banner.setAttribute("aria-label", "Information sur les cookies");
-  banner.innerHTML =
-    '<h2>Votre vie privée, simplement.</h2><p>Ce site n’utilise actuellement aucun cookie publicitaire ou de mesure d’audience. Un stockage local sert uniquement à mémoriser la fermeture de ce message.</p><div class="cookie-actions"><button type="button" data-cookie-close>Compris</button><a href="confidentialite.html">En savoir plus</a></div>';
+  banner.innerHTML = `<h2>Votre vie privée, simplement.</h2><p>Ce site n’utilise actuellement aucun cookie publicitaire ou de mesure d’audience. Un stockage local sert uniquement à mémoriser la fermeture de ce message.</p><div class="cookie-actions"><button type="button" data-cookie-close>Compris</button><a href="${rootPrefix}confidentialite.html">En savoir plus</a></div>`;
   document.body.appendChild(banner);
   banner.querySelector("[data-cookie-close]").addEventListener("click", () => {
     localStorage.setItem(COOKIE_NOTICE_KEY, "acknowledged");
