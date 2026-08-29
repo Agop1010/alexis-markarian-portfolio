@@ -58,7 +58,8 @@ if (navShell) {
     toggle.type = "button";
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-controls", "main-menu");
-    toggle.innerHTML = '<span></span><span></span><span class="sr-only">Ouvrir le menu</span>';
+    toggle.innerHTML =
+      '<span></span><span></span><span class="sr-only">Ouvrir le menu</span>';
     navShell.appendChild(toggle);
   }
   let links = navShell.querySelector("#main-menu");
@@ -69,8 +70,10 @@ if (navShell) {
     navShell.appendChild(links);
   }
   const path = window.location.pathname;
-  const active = (part) => path.includes(part) ? "active" : "";
-  const toolsActive = /diagnostic|calculateur|developpeur-troyes/.test(path) ? " active" : "";
+  const active = (part) => (path.includes(part) ? "active" : "");
+  const toolsActive = /diagnostic|calculateur|developpeur-troyes/.test(path)
+    ? " active"
+    : "";
   links.innerHTML = `
     <a class="${active("/services")}" href="${rootPrefix}services.html">Services</a>
     <a class="${active("projets")}" href="${rootPrefix}projets.html">Projets</a>
@@ -84,9 +87,13 @@ if (navShell) {
         <a href="${rootPrefix}developpeur-troyes.html">Troyes & France</a>
       </div>
     </details>
-    <a class="nav-cta ${active("rendez-vous")}" href="${rootPrefix}rendez-vous.html">Réserver 30 min <span>↗</span></a>
+    <a class="nav-cta ${active("rendez-vous")}" href="${rootPrefix}rendez-vous.html">Réserver 30 min <span>↗︎</span></a>
   `;
 }
+
+document.querySelectorAll(".button span, .nav-cta span").forEach((icon) => {
+  if (icon.textContent.trim().includes("↗")) icon.textContent = "↗︎";
+});
 
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#main-menu");
