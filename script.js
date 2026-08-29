@@ -194,6 +194,15 @@ const services = {
     chips: ["Odoo", "API métier", "E-commerce & CRM"],
     flow: ["Outil A", "Synchronisation", "Outil B"],
   },
+  showcase: {
+    kicker: "Site vitrine / e-commerce",
+    icon: "◫",
+    color: "#d8ecff",
+    title: "Un site clair pour être trouvé, rassurer et vendre.",
+    text: "Site vitrine, catalogue ou boutique en ligne rapide, administrable et pensé pour vos clients.",
+    chips: ["Site vitrine", "WooCommerce", "Shopify"],
+    flow: ["Votre offre", "Parcours client", "Site en ligne"],
+  },
 };
 
 const serviceTabs = document.querySelectorAll(".service-tab");
