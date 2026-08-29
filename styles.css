@@ -34,7 +34,7 @@ button { color: inherit; }
 .site-header.hidden { transform: translateY(-130%); }
 .nav-shell { max-width: 1320px; min-height: 72px; margin: auto; padding: 8px 10px 8px 18px; display: flex; align-items: center; justify-content: space-between; border-radius: 22px; color: #fff; background: rgba(23,24,23,.96); box-shadow: 0 24px 70px rgba(26,39,48,.16); backdrop-filter: blur(18px); }
 .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 650; letter-spacing: -.025em; }
-.brand-mark { width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 auto; color: var(--ink); background: var(--cream); border-radius: 12px; font-family: var(--mono); font-size: 12px; }
+.brand-mark { width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; color: transparent; background-color: #e7dafa; background-image: linear-gradient(145deg, rgba(176,252,206,.72), rgba(231,218,250,.76)), url('assets/alexis-markarian.svg'); background-size: cover, 118%; background-position: center, center 27%; background-repeat: no-repeat; background-blend-mode: multiply; border: 2px solid rgba(255,255,255,.3); border-radius: 14px; font-family: var(--mono); font-size: 0; }
 .nav-links { display: flex; align-items: center; gap: 8px; }
 .nav-links > a { padding: 13px 15px; border-radius: 13px; color: rgba(255,255,255,.69); font-size: 14px; transition: color .2s, background .2s; }
 .nav-links > a:hover, .nav-links > a.active { color: #fff; background: rgba(255,255,255,.07); }
@@ -184,14 +184,14 @@ h2 { margin: 0; font-size: clamp(2.8rem, 4.6vw, 5.2rem); line-height: .98; lette
 .form-status { min-height: 18px; margin: 0; color: #5b666b; font-size: 11px; line-height: 1.4; }
 
 .footer { max-width: 1368px; margin: 0 auto; padding: 60px 48px 50px; display: grid; grid-template-columns: 1.2fr 1fr .7fr auto; gap: 50px; align-items: start; border-top: 1px solid var(--line); }
-.footer-brand .brand-mark { color: #fff; background: var(--ink); }
+.footer-brand .brand-mark { color: transparent; }
 .footer p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .footer > div { display: grid; gap: 8px; font-size: 13px; }
 .footer > .mono { color: #858d91; }
 
 /* Pages internes */
-.page-main { padding-top: 118px; }
-.page-hero { max-width: 1368px; margin: 0 auto; padding: 115px 48px 90px; }
+.page-main { padding-top: 96px; }
+.page-hero { max-width: 1368px; margin: 0 auto; padding: 50px 48px 90px; }
 .page-hero.compact { padding-bottom: 55px; }
 .page-hero h1 { max-width: 1050px; font-size: clamp(3.5rem, 6vw, 6.7rem); }
 .page-hero .page-lead { max-width: 760px; margin: 30px 0 0; color: #4d5a61; font-size: clamp(1.1rem, 1.8vw, 1.4rem); line-height: 1.6; }
@@ -304,7 +304,7 @@ h2 { margin: 0; font-size: clamp(2.8rem, 4.6vw, 5.2rem); line-height: .98; lette
   .method-steps li { min-height: 130px; grid-template-columns: 36px 1fr; }.method-steps li > i { display: none; }
   .contact { padding-inline: 12px; }.contact-panel { padding: 45px 20px 20px; border-radius: 30px; }.contact-form { padding: 24px 18px; }
   .footer { padding: 50px 20px; grid-template-columns: 1fr; gap: 30px; }
-  .page-main { padding-top: 84px; }.page-hero { padding: 90px 20px 65px; }.page-hero h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
+  .page-main { padding-top: 78px; }.page-hero { padding: 48px 20px 65px; }.page-hero h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
   .content-section, .content-section.white { padding: 65px 20px 95px; }.service-index-grid, .example-grid, .principles, .choice-grid { grid-template-columns: 1fr; }
   .case-study { grid-template-columns: 1fr; gap: 35px; padding: 24px; }.inline-cta { align-items: flex-start; flex-direction: column; }
   .diagnostic-shell { padding: 35px 16px 100px; }.diagnostic-card { padding: 24px 18px; }
