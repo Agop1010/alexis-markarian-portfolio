@@ -54,19 +54,6 @@ const sectionObserver = new IntersectionObserver((entries) => {
 }, { rootMargin: '-40% 0px -50%', threshold: 0 });
 sections.forEach((section) => sectionObserver.observe(section));
 
-const rotatingWord = document.querySelector('[data-words]');
-if (rotatingWord && !reduceMotion) {
-  const words = rotatingWord.dataset.words.split(',');
-  let wordIndex = 0;
-  window.setInterval(() => {
-    wordIndex = (wordIndex + 1) % words.length;
-    rotatingWord.animate([{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 220, fill: 'forwards' }).finished.then(() => {
-      rotatingWord.textContent = words[wordIndex];
-      rotatingWord.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 280, fill: 'forwards' });
-    });
-  }, 2800);
-}
-
 const counters = document.querySelectorAll('[data-count]');
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
