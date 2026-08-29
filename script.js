@@ -142,3 +142,34 @@ form?.addEventListener('submit', (event) => {
 });
 
 document.querySelector('[data-year]').textContent = new Date().getFullYear();
+
+const diagnostic = document.querySelector('[data-diagnostic]');
+if (diagnostic) {
+  const steps = [...diagnostic.querySelectorAll('.diagnostic-step')];
+  const progress = diagnostic.querySelector('.diagnostic-progress i');
+  const answers = {};
+  let currentStep = 0;
+
+  diagnostic.querySelectorAll('[data-answer]').forEach((choice) => {
+    choice.addEventListener('click', () => {
+      answers[choice.dataset.question] = choice.dataset.answer;
+      currentStep += 1;
+      steps.forEach((step, index) => step.classList.toggle('active', index === currentStep));
+      progress.style.width = `${Math.min(((currentStep + 1) / steps.length) * 100, 100)}%`;
+
+      if (currentStep === steps.length - 1) {
+        const resultTitle = diagnostic.querySelector('[data-result-title]');
+        const resultText = diagnostic.querySelector('[data-result-text]');
+        const recommendations = {
+          time: ['Une automatisation ciblée', 'Je commencerais par repérer les tâches répétitives et les échanges entre vos outils. Une première automatisation peut souvent produire un gain visible sans refaire tout votre système.'],
+          clients: ['Un assistant IA bien encadré', 'Je vous proposerais un assistant capable de répondre à partir de vos contenus, avec une transmission simple vers une personne lorsque c’est nécessaire.'],
+          app: ['Une application web sur mesure', 'Votre besoin semble demander une interface dédiée. Je cadrerais les parcours essentiels avant de construire une première version simple à tester.'],
+          connect: ['Une intégration entre vos outils', 'Je commencerais par cartographier les données qui circulent entre vos logiciels afin de supprimer les doubles saisies et fiabiliser les informations.']
+        };
+        const result = recommendations[answers.need] || recommendations.time;
+        resultTitle.textContent = result[0];
+        resultText.textContent = result[1];
+      }
+    });
+  });
+}
