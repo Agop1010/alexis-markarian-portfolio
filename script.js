@@ -1,6 +1,11 @@
 const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
+const stylesheetHref =
+  document
+    .querySelector('link[rel="stylesheet"][href$="styles.css"]')
+    ?.getAttribute("href") || "styles.css";
+const rootPrefix = stylesheetHref.slice(0, -"styles.css".length);
 
 const revealItems = document.querySelectorAll(".reveal");
 if (reduceMotion) {
@@ -43,6 +48,45 @@ window.addEventListener(
   },
   { passive: true },
 );
+
+const navShell = document.querySelector(".nav-shell");
+if (navShell) {
+  let toggle = navShell.querySelector(".menu-toggle");
+  if (!toggle) {
+    toggle = document.createElement("button");
+    toggle.className = "menu-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", "main-menu");
+    toggle.innerHTML = '<span></span><span></span><span class="sr-only">Ouvrir le menu</span>';
+    navShell.appendChild(toggle);
+  }
+  let links = navShell.querySelector("#main-menu");
+  if (!links) {
+    links = document.createElement("div");
+    links.className = "nav-links";
+    links.id = "main-menu";
+    navShell.appendChild(links);
+  }
+  const path = window.location.pathname;
+  const active = (part) => path.includes(part) ? "active" : "";
+  const toolsActive = /diagnostic|calculateur|developpeur-troyes/.test(path) ? " active" : "";
+  links.innerHTML = `
+    <a class="${active("/services")}" href="${rootPrefix}services.html">Services</a>
+    <a class="${active("projets")}" href="${rootPrefix}projets.html">Projets</a>
+    <a class="${active("/conseils") || active("conseils")}" href="${rootPrefix}conseils.html">Conseils</a>
+    <a class="${active("a-propos")}" href="${rootPrefix}a-propos.html">À propos</a>
+    <details class="nav-tools${toolsActive}">
+      <summary>Outils</summary>
+      <div>
+        <a href="${rootPrefix}diagnostic.html">Diagnostic</a>
+        <a href="${rootPrefix}calculateur.html">Calculateur de gains</a>
+        <a href="${rootPrefix}developpeur-troyes.html">Troyes & France</a>
+      </div>
+    </details>
+    <a class="nav-cta ${active("rendez-vous")}" href="${rootPrefix}rendez-vous.html">Réserver 30 min <span>↗</span></a>
+  `;
+}
 
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#main-menu");
@@ -207,11 +251,6 @@ const year = document.querySelector("[data-year]");
 if (year) year.textContent = new Date().getFullYear();
 
 const legalLinks = document.querySelector(".footer > div");
-const stylesheetHref =
-  document
-    .querySelector('link[rel="stylesheet"][href$="styles.css"]')
-    ?.getAttribute("href") || "styles.css";
-const rootPrefix = stylesheetHref.slice(0, -"styles.css".length);
 if (legalLinks) {
   if (!legalLinks.querySelector('a[href$="mentions-legales.html"]')) {
     legalLinks.insertAdjacentHTML(
