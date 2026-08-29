@@ -676,12 +676,6 @@ h2 {
   background: var(--ink);
   transform: none;
 }
-.service-tab.active > i::before {
-  transform: translate(-50%, -50%);
-}
-.service-tab.active > i::after {
-  transform: translate(1px, -50%) rotate(45deg);
-}
 .service-preview {
   min-height: 520px;
   padding: clamp(30px, 5vw, 60px);
