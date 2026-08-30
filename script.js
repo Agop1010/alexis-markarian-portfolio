@@ -113,6 +113,26 @@ menu?.querySelectorAll("a").forEach((link) =>
   }),
 );
 
+const footer = document.querySelector(".footer");
+if (footer && !footer.querySelector(".france-num-badge")) {
+  const badge = document.createElement("a");
+  badge.className = "france-num-badge";
+  badge.href =
+    "https://www.francenum.gouv.fr/experts-du-numerique/pourquoi-faire-appel-un-expert-du-numerique-reference-par-france-num";
+  badge.target = "_blank";
+  badge.rel = "noopener noreferrer";
+  badge.setAttribute(
+    "aria-label",
+    "Alexis Markarian, référencé Activateur France Num — en savoir plus",
+  );
+  badge.innerHTML = `
+    <img src="https://www.francenum.gouv.fr/files/Logos/logo-activateur-francenum-web.jpg" alt="Activateur France Num" width="400" height="364">
+    <span>Référencé<br>Activateur France Num</span>
+  `;
+  const copyright = footer.querySelector(":scope > .mono");
+  footer.insertBefore(badge, copyright);
+}
+
 const sections = [...document.querySelectorAll("main section[id]")];
 const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
 const sectionObserver = new IntersectionObserver(
