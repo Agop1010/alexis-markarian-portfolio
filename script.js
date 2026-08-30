@@ -91,9 +91,13 @@ if (navShell) {
   `;
 }
 
-document.querySelectorAll(".button span, .nav-cta span").forEach((icon) => {
-  if (icon.textContent.trim().includes("↗")) icon.textContent = "↗︎";
-});
+document
+  .querySelectorAll(
+    ".button span, .nav-cta span, .service-tab > i, .card-arrow, .card-link, .related-guides a > span",
+  )
+  .forEach((icon) => {
+    icon.textContent = icon.textContent.replace(/[↗→]\uFE0E?/g, "↗︎");
+  });
 
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#main-menu");
