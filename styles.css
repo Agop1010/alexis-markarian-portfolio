@@ -131,7 +131,7 @@ button {
   flex: 0 0 auto;
   overflow: hidden;
   color: transparent;
-  background: #fff url("assets/alexis-markarian.svg") center 16% / 110%
+  background: #fff url("assets/alexis-markarian.jpg") center 22% / cover
     no-repeat;
   border: 0;
   border-radius: 14px;
