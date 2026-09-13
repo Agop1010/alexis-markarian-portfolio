@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Passeport CSV Light — Pré-contrôle ADF & JDR</title>
+<meta name="description" content="Préparez vos fichiers ADF ou JDR pour l’import en masse du Passeport de prévention : mapping, pré-contrôle, corrections, identifiants et export local." />
+<meta name="robots" content="noindex,nofollow" />
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand">Passeport CSV Light<small>Pré-contrôle ADF & JDR • sans migration</small></div>
+  <nav class="nav"><a class="active" href="#">Préparer un fichier</a><a href="#mappingCard">Correspondance</a><a href="#issues">Erreurs</a><a href="#receiptCard">Accusé de traitement</a></nav>
+  <div class="sidefooter"><div class="pilot">● Version pilote</div><br><br>Traitement local dans votre navigateur. Aucun fichier stagiaire n’est téléversé. Les profils enregistrent uniquement vos correspondances de colonnes.</div>
+</aside>
+<main class="main">
+  <div class="top"><div><h1 id="heroTitle">Votre Excel → un fichier ADF prêt à déposer</h1><p id="heroSub">Pré-contrôlez, corrigez et exportez vos attestations de formation sans changer de logiciel.</p></div><div class="privacy">● Données locales • aucun NIR envoyé</div></div>
+  <div class="segmented" aria-label="Type de déclaration"><button id="typeADF" class="active" data-type="ADF">Attestation de formation (ADF)</button><button id="typeJDR" data-type="JDR">Justificatif de réussite (JDR)</button></div>
+  <div class="valuebar"><div class="valueitem"><b>Pas de migration</b>Gardez Excel ou votre logiciel actuel.</div><div class="valueitem"><b>2 clics au prochain import</b>Enregistrez votre profil de colonnes une fois.</div><div class="valueitem"><b>Pré-contrôle avant dépôt</b>Corrigez les erreurs probables avant le portail officiel.</div></div>
+  <div class="grid">
+    <section>
+      <div class="card cardpad">
+        <div id="drop" class="upload"><strong>Déposez votre export habituel</strong><span>Excel ou CSV • vos colonnes sont reconnues automatiquement</span><input id="file" type="file" accept=".xlsx,.xls,.csv,text/csv" hidden /></div>
+        <div class="actions"><button class="btn primary" id="pick">Choisir un fichier</button><button class="btn secondary" id="sample">Charger un exemple</button><button class="btn ghost" id="clear">Réinitialiser</button></div>
+        <div id="filemeta" class="filemeta hidden"><span class="dot"></span><span id="filename"></span><span>•</span><span id="sheetname"></span></div>
+        <div id="filecheck" class="filecheck hidden"></div>
+      </div>
+      <div class="stats"><div class="stat"><label>Lignes</label><b id="sRows">0</b></div><div class="stat err"><label>Erreurs</label><b id="sErrors">0</b></div><div class="stat warn"><label>Avertissements</label><b id="sWarnings">0</b></div><div class="stat ok"><label>Prêtes</label><b id="sReady">0</b></div></div>
+      <div class="card cardpad issues" id="issues"><div class="sectiontitle"><h2>Pré-contrôle</h2><span id="statusBadge" class="badge warn">En attente</span></div><div id="issuesBody" class="empty">Chargez un fichier pour lancer les contrôles.</div></div>
+      <div class="card cardpad receipt" id="receiptCard">
+        <div class="sectiontitle"><h2>Analyser un accusé de traitement</h2><span class="badge warn">Bêta</span></div>
+        <div class="receiptgrid"><div><div style="font-size:13px;font-weight:700">Le portail a rejeté des lignes ?</div><div class="helper">Importez son accusé CSV / Excel / TXT : l’outil extrait les erreurs, tente d’identifier le champ concerné et rapproche les identifiants de votre fichier ouvert.</div></div><button class="btn ghost" id="receiptPick">Importer l’accusé</button></div>
+        <input id="receiptFile" type="file" accept=".csv,.xlsx,.xls,.txt,text/csv,text/plain" hidden />
+        <div id="receiptResult" class="receiptresult hidden"></div>
+      </div>
+    </section>
+    <aside>
+      <div class="card cardpad" id="mappingCard">
+        <div class="sectiontitle"><h2>Correspondance des colonnes</h2><span class="badge ok" id="mapCount">0/20</span></div>
+        <div class="profilebar"><select id="profileSelect"><option value="">Auto-détection</option></select><button class="btn ghost" id="saveProfile" disabled>Enregistrer</button><button class="btn ghost" id="deleteProfile" disabled>Supprimer</button></div>
+        <div id="mapping" class="mapping"><div class="empty">Les colonnes seront associées automatiquement après l’import.</div></div>
+        <div class="actions"><button id="validate" class="btn primary" disabled>Pré-contrôler</button><button id="autofix" class="btn fix" disabled>Corriger automatiquement</button><button id="genids" class="btn warn" disabled>Générer les IDs manquants</button><button id="download" class="btn secondary" disabled>Télécharger le CSV</button><button id="report" class="btn ghost" disabled>Rapport d’erreurs</button></div>
+        <div class="notice" id="schemaNotice"><strong>ADF :</strong> export UTF‑8 avec séparateur <code>|</code> et colonnes dans l’ordre de la trame documentée. Le portail officiel reste l’autorité finale pour les référentiels NIR, SIRET, ROME, NSF, Formacode et certification.</div>
+        <div class="helper">Les profils et identifiants générés sont mémorisés uniquement dans ce navigateur. Le NIR n’est jamais enregistré en clair dans le profil ou l’historique local.</div>
+      </div>
+    </aside>
+  </div>
+</main>
+</div>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
